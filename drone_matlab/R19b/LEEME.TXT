@@ -1,0 +1,6 @@
+Archivos preparados con Matlab R2017a
+
+El archivo gazebo_connection.m ya no es necesario. En su lugar, una vez abierto el archivo drone_control.slx en Simulink, hay que especificar la IP de la máquina donde está corriendo ROS/Gazebo. Para ello...
+1) Desplegar el menú "Tools" de Simulink y escoger la opción "Robot Operating System"->"Configure Network Address"
+2) En el cuadro de diálogo que aparece, completar el campo "Hostname/IP Address"
+3) Conviene además comprobar la conectividad con ROS, mediante el botón "Test" del mismo cuadro de diálogo
