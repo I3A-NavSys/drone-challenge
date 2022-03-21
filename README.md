@@ -38,7 +38,7 @@ La instalación de ROS y Gazebo puede realizarse siguiendo la documentación del
 3. Configurar el entorno 
 4. Instalar las dependencias y el gestor de dependencias, que se encarga de mantenerlas actualizadas.
 
-Una vez finalizada la instalación con los pasos mencionados anteriormente dispondremos de ROS y Gazebo instalados en el equipo. Para verificar su correcto funcionamiento, abre una terminal (`Ctrl + Alt + T`) y escribe el siguiente comando:
+Una vez finalizada la instalación con los pasos mencionados anteriormente, dispondremos de ROS y Gazebo instalados en el equipo. Para verificar su correcto funcionamiento, abre una terminal (`Ctrl + Alt + T`) y escribe el siguiente comando:
 ```
 roscore &
 ```
@@ -63,7 +63,8 @@ sudo chown <usuario> -R drone_ros
 sudo chgrp <usuario> -R drone_ros
 ```
 3. Finalmente, debemos modificar la tarjeta de red que escuchará el plugin para recibir los mensajes de control. Para ello, seguiremos los siguientes pasos:
-   3.1.	Si no dispones del paquete `net-tools`, instalalo con el siguiente comando:
+   3.1.	Si no dispones del paquete `net-tools`, instálalo con el siguiente comando:
+   
    ```shell
    sudo apt install net-tools
    ```
@@ -112,7 +113,7 @@ roscd drone_ros
 cd launch
 ./round1.sh
 ```
-Verás como la terminal se llena de multitud de lineas con información del entorno de simulación. Entre toda esa información solo tienes que fijarte en la primera línea, donde te indica la dirección IP de ROS.
+Verás como la terminal se llena de multitud de líneas con información del entorno de simulación. Entre toda esa información solo tienes que fijarte en la primera línea, donde te indica la dirección IP de ROS.
 Tras unos segundos, verás que Gazebo se habrá abierto, y verás que hay un escenario con un drone sobre una caja, y 3 marcos de color rojo, verde y azul flotando. 
 
 ![Entorno de simulación 3D de la Drone Challenge](https://i.imgur.com/yIRiAMG.png)
@@ -121,7 +122,7 @@ Tras unos segundos, verás que Gazebo se habrá abierto, y verás que hay un esc
 
 Ahora, vamos a iniciar el controlador. Para ello, necesitas disponer de los ficheros almacenados en el directorio `drone_matlab` de este repositorio, y en el directorio correspondiente a la versión de MATLAB que dispongas (para esta guía, 2022a o 22a). Almacénalos en un directorio de tu máquina donde puedas acceder fácilmente a ellos. Tras esto, iniciar MATLAB 2022a. 
 
-Ahora, desde MATLAB, verás que en el panel lateral izquierdo dispones de un navegador de archivos. Navega desde el hasta el directorio que acabas de crear, de forma que veas los ficheros en el. Dicho directorio dispone de un fichero `drone_control_R22a.slx` que sirve para probar el simulador. Abre dicho fichero (puede tardar un poco, dado que es un fichero Simulink y debe lanzarse el entorno, que es pesado).
+Ahora, desde MATLAB, verás que en el panel lateral izquierdo dispones de un navegador de archivos. Navega hasta el directorio que acabas de crear, de forma que veas los ficheros en él. Dicho directorio dispone de un fichero `drone_control_R22a.slx` que sirve para probar el simulador. Abre dicho fichero (puede tardar un poco, dado que es un fichero Simulink y debe lanzarse el entorno, que es pesado).
 
 Una vez abierto, puedes ver lo siguiente:
 ![Controlador en Simulink](https://i.imgur.com/b56IKMq.png)
@@ -131,10 +132,10 @@ Verás que hay diferentes bloques:
 - El bloque `pilot` puede usarse para controlar el drone con un joystick. Si dispones de uno, puedes probarlo. Sin embargo, para que el piloto automático funcione, debe estar comentado. Por defecto viene comentado.
 - El bloque `drone simulator` se encarga de la comunicación con el drone, enviandole los comandos y recibiendo la telemetría del mismo.
 
-Para comenzar la simulación, primero, desde la barra de herramientas superior, pulsa sobre "Simulation". Despues, en el panel "PREPARE", pulsa sobre "ROS Network", y en la ventana que se abre, escribe la dirección IP que apareció en la consola cuando ejecutamos ROS y Gazebo, en el apartado que indica "ROS MAster (ROS)". Deberás seleccionar "Custom" en "Netword Address" para escribir la dirección IP. Pulsa sobre "Test" para comprobar que tienes conexión con ROS y Gazebo.
+Para comenzar la simulación, primero, desde la barra de herramientas superior, pulsa sobre "Simulation". Después, en el panel "PREPARE", pulsa sobre "ROS Network", y en la ventana que se abre, escribe la dirección IP que apareció en la consola cuando ejecutamos ROS y Gazebo, en el apartado que indica "ROS MAster (ROS)". Deberás seleccionar "Custom" en "Netword Address" para escribir la dirección IP. Pulsa sobre "Test" para comprobar que tienes conexión con ROS y Gazebo.
 ![Conexión MATLAB con ROS](https://i.imgur.com/IxcIj4E_d.webp?maxwidth=760&fidelity=grand)
 
-Finalmente, si la conexión es correcta, puedes pulsar sobre "Run", en el apartado "SIMULATE", de la pestaña "SIMULATION" de la barra de herramientas superior de MATLAB. El programa empezará a compilar y, cuando haya finalizado, verás como el drone se alza en el aire. Verás tambien que desde MATLAB se abren algunas ventanas: una con los comandos enviados al drone, otra con la respuesta del mismo y otra con la vista de la cámara _onboard_ del drone. Ya tienes todo lo necesario para comenzar el reto **Drone Challenge**.
+Finalmente, si la conexión es correcta, puedes pulsar sobre "Run", en el apartado "SIMULATE", de la pestaña "SIMULATION" de la barra de herramientas superior de MATLAB. El programa empezará a compilar y, cuando haya finalizado, verás como el drone se alza en el aire. Verás también que desde MATLAB se abren algunas ventanas: una con los comandos enviados al drone, otra con la respuesta del mismo y otra con la vista de la cámara _onboard_ del drone. Ya tienes todo lo necesario para comenzar el reto **Drone Challenge**.
 
 ![Entorno de simulación 3D donde el drone está recibiendo los comandos por parte de MATLAB](https://i.imgur.com/mgkWoH4.png)
 
