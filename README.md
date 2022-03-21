@@ -62,23 +62,30 @@ cd /opt/ros/noetic/share
 sudo chown <usuario> -R drone_ros
 sudo chgrp <usuario> -R drone_ros
 ```
-3.	Finalmente, debemos modificar la tarjeta de red que escuchará el plugin para recibir los mensajes de control. Para ello, seguiremos los siguientes pasos:
-3.1.	Si no dispones del paquete `net-tools`, instalalo con el siguiente comando:
-	```shell
-	sudo apt install net-tools
-	```
-3.2.	Una vez instalado, ejecuta el siguiente comando:
-	```shell
-	ifconfig
-	```
-	La salida del comando mostrará las interfaces de red instaladas en tu máquina. A 	continuación mostramos un ejemplo: esta máquina dispone de 2 interfaces de red: 	_enp0s3_ y _lo_. La interfaz llamada _lo_ es la interfaz interna del ordenador, por lo que esa solo la debemos usar si tanto MATLAB como ROS y Gazebo se encuentran en el mismo equipo e instalación. Apunta el nombre de la interfaz a usar.
-![Salida del comando ifconfig](https://i.imgur.com/A97i0zu.png)
-3.3.	Ahora, edita el fichero `ros_ip_set.sh` localizado en el directorio `/opt/ros/noetic/share/drone_ros/launch`. Para ello, usa estos comandos:
-```shell
-cd /opt/ros/noetic/share/drone_ros/launch
-gedit ros_ip_set.sh
-```
-	En la primera línea, tras la palabra _ifconfig_, y antes del caracter |, escribe el nombre de tú interfaz. En el caso de esta guía, usaremos _enp0s3_. 
-![Configuración de la interfaz en el fichero ros_ip_set.sh](https://i.imgur.com/D8lMIg0_d.webp?maxwidth=760&fidelity=grand)
+3. Finalmente, debemos modificar la tarjeta de red que escuchará el plugin para recibir los mensajes de control. Para ello, seguiremos los siguientes pasos:
+   3.1.	Si no dispones del paquete `net-tools`, instalalo con el siguiente comando:
+   ```shell
+   sudo apt install net-tools
+   ```
+   3.2.	Una vez instalado, ejecuta el siguiente comando:
+   ```shell
+   ifconfig
+   ```
+   La salida del comando mostrará las interfaces de red instaladas en tu máquina. A 	continuación mostramos un ejemplo: esta máquina dispone de 2 interfaces de red: _enp0s3_ y _lo_. La interfaz llamada _lo_ es la interfaz interna del ordenador, por lo que esa solo la debemos usar si tanto MATLAB como ROS y Gazebo se encuentran en el mismo equipo e instalación. Apunta el nombre de la interfaz a usar.
+   ![Salida del comando ifconfig](https://i.imgur.com/A97i0zu.png)
+   
+   3.3.	Ahora, edita el fichero `ros_ip_set.sh` localizado en el directorio `/opt/ros/noetic/share/drone_ros/launch`. Para ello, usa estos comandos:
+   ```shell
+   cd /opt/ros/noetic/share/drone_ros/launch
+   gedit ros_ip_set.sh
+   ```
+   En la primera línea, tras la palabra _ifconfig_, y antes del caracter |, escribe el nombre de tú interfaz. En el caso de esta guía, usaremos _enp0s3_. 
+   ![Configuración de la interfaz en el fichero ros_ip_set.sh](https://i.imgur.com/D8lMIg0_d.webp?maxwidth=760&fidelity=grand)
 
-## 
+## 1.3. Añadir los modelos 3D a Gazebo
+Gazebo dispone de multitud de recursos 3D. Sin embargo, el modelo del drone y los marcos necesarios deben ser instalados de forma independiente. Para ello, simplemente copia el directorio `models` proporcionado dentro de la carpeta oculta `.gazebo`, dentro de la carpeta de tu usuario:
+```shell
+cd /home/<usuario> 
+cp -R /dronechallenge_files/models /.gazebo
+```
+
