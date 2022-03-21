@@ -1,0 +1,12 @@
+Conexión Simulink-ROS
+=====================
+
+Ejecutar el simulador de Gazebo
+Tomar nota de la IP que proporciona
+
+
+Abrir drone_control.slx
+No utilizar la lengüeta ROBOT\"Connect to Robot", puesto que pide usuario/password
+Utilizar la app SIMULATION\PREPARE\"ROS Network" y configurar la IP
+Si no se encuentra, ejecutar. Cuando de error, el diagnostic Viewer ofrece un link al ROS network address configuration
+

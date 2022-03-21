@@ -31,7 +31,7 @@ Para configurar el entorno de trabajo necesitamos instalar:
 
 [^3]: La instalación de MATLAB puede realizarse en la misma máquina donde ROS y Gazebo están instalados, o hacerlo en máquinas separadas. Ambas piezas de software son conectadas a través de una red, por lo que deben poder comunicarse entre ellas. Si se hace en la misma máquina, se reducirá la latencia de red entre MATLAB, ROS y Gazebo.  
 
-## 1.1. Configuración de ROS y Gazebo
+## 1.1. Instalación de ROS y Gazebo
 La instalación de ROS y Gazebo puede realizarse siguiendo la documentación del propio proyecto, disponible en http://wiki.ros.org/noetic/Installation/Ubuntu. Con esta guía podrás:
 1. Configurar los repositorios de Ubuntu para poder descargar e instalar ROS y Gazebo.
 2. Instalar ROS y Gazebo (versión "Desktop-Full Install")
@@ -79,7 +79,7 @@ sudo chgrp <usuario> -R drone_ros
    cd /opt/ros/noetic/share/drone_ros/launch
    gedit ros_ip_set.sh
    ```
-   En la primera línea, tras la palabra _ifconfig_, y antes del caracter |, escribe el nombre de tú interfaz. En el caso de esta guía, usaremos _enp0s3_. 
+   En la primera línea, tras la palabra _ifconfig_, y antes del caracter |, escribe el nombre de tú interfaz. En el caso de esta guía, usaremos _enp0s3_.  Recuerda guardar el fichero antes de salir.
    ![Configuración de la interfaz en el fichero ros_ip_set.sh](https://i.imgur.com/D8lMIg0_d.webp?maxwidth=760&fidelity=grand)
 
 ## 1.3. Añadir los modelos 3D a Gazebo
@@ -89,3 +89,53 @@ cd /home/<usuario>
 cp -R /dronechallenge_files/models /.gazebo
 ```
 
+## 1.4. Instalación de MATLAB y dependencias
+Para instalar MATLAB, en este caso la versión 2022a, solo tienes que dirigirte a su página web y descargar el fichero ejecutable (https://es.mathworks.com/products/matlab/whatsnew.html). En esta guía se seguirá los pasos de instalación para Windows, pero puede ser instalado en Ubuntu de forma muy similar.
+Una vez descargado el fichero ejecutable, ejecutalo. Sigue el proceso de instalación hasta la ventana que indique "_Select products to install_". Es aquí donde tenemos que marcar las siguientes dependencias:
+- MATLAB Coder
+- Simulink
+- Simulink Coder
+- Stateflow
+- Aerospace Blockset
+- Aerospace Toolbox
+- Robotics System Toolbox
+- ROS Toolbox
+
+MATLAB empezará a descargar todos los ficheros necesarios y comenzará la instalación. Cuando termine, puede que tengas que activar tu licencia de MATLAB con algunos de los métodos ofrecidos. Sigue los pasos de validación y tendrás MATLAB listo para comenzar.
+
+# 2. Ejecución del simulador
+Finalmente tenemos todo instalado. Ya comentamos anteriormente que el simulador se divide en dos partes: el control y el entorno de simulación 3D. Ambos se encuentran comunicados por una red (esto es así porque el control y el entorno de simulación pueden estar en máquinas diferentes. De ahí que anteriormente hayamos tenido que configurar una interfaz de red como medio de comunicación). Ahora, solo tenemos que ejecutar ambos entornos:
+## 2.1. Iniciar la simulación en ROS y Gazebo
+Primero iniciaremos ROS y Gazebo, ya que es MATLAB quien debe conectarse a ellos. Para ejecutar la simulación, ejecuta los siguientes comandos:
+```
+roscd drone_ros
+cd launch
+./round1.sh
+```
+Verás como la terminal se llena de multitud de lineas con información del entorno de simulación. Entre toda esa información solo tienes que fijarte en la primera línea, donde te indica la dirección IP de ROS.
+Tras unos segundos, verás que Gazebo se habrá abierto, y verás que hay un escenario con un drone sobre una caja, y 3 marcos de color rojo, verde y azul flotando. 
+
+![Entorno de simulación 3D de la Drone Challenge](https://i.imgur.com/yIRiAMG.png)
+
+## 2.2. Iniciar el controlador en MATLAB
+
+Ahora, vamos a iniciar el controlador. Para ello, necesitas disponer de los ficheros almacenados en el directorio `drone_matlab` de este repositorio, y en el directorio correspondiente a la versión de MATLAB que dispongas (para esta guía, 2022a o 22a). Almacénalos en un directorio de tu máquina donde puedas acceder fácilmente a ellos. Tras esto, iniciar MATLAB 2022a. 
+
+Ahora, desde MATLAB, verás que en el panel lateral izquierdo dispones de un navegador de archivos. Navega desde el hasta el directorio que acabas de crear, de forma que veas los ficheros en el. Dicho directorio dispone de un fichero `drone_control_R22a.slx` que sirve para probar el simulador. Abre dicho fichero (puede tardar un poco, dado que es un fichero Simulink y debe lanzarse el entorno, que es pesado).
+
+Una vez abierto, puedes ver lo siguiente:
+![Controlador en Simulink](https://i.imgur.com/b56IKMq.png)
+
+Verás que hay diferentes bloques:
+- El bloque `autopilot` es el pioto automático del drone. La parte a desarrollar en Drone Challenge.
+- El bloque `pilot` puede usarse para controlar el drone con un joystick. Si dispones de uno, puedes probarlo. Sin embargo, para que el piloto automático funcione, debe estar comentado. Por defecto viene comentado.
+- El bloque `drone simulator` se encarga de la comunicación con el drone, enviandole los comandos y recibiendo la telemetría del mismo.
+
+Para comenzar la simulación, primero, desde la barra de herramientas superior, pulsa sobre "Simulation". Despues, en el panel "PREPARE", pulsa sobre "ROS Network", y en la ventana que se abre, escribe la dirección IP que apareció en la consola cuando ejecutamos ROS y Gazebo, en el apartado que indica "ROS MAster (ROS)". Deberás seleccionar "Custom" en "Netword Address" para escribir la dirección IP. Pulsa sobre "Test" para comprobar que tienes conexión con ROS y Gazebo.
+![Conexión MATLAB con ROS](https://i.imgur.com/IxcIj4E_d.webp?maxwidth=760&fidelity=grand)
+
+Finalmente, si la conexión es correcta, puedes pulsar sobre "Run", en el apartado "SIMULATE", de la pestaña "SIMULATION" de la barra de herramientas superior de MATLAB. El programa empezará a compilar y, cuando haya finalizado, verás como el drone se alza en el aire. Verás tambien que desde MATLAB se abren algunas ventanas: una con los comandos enviados al drone, otra con la respuesta del mismo y otra con la vista de la cámara _onboard_ del drone. Ya tienes todo lo necesario para comenzar el reto **Drone Challenge**.
+
+![Entorno de simulación 3D donde el drone está recibiendo los comandos por parte de MATLAB](https://i.imgur.com/mgkWoH4.png)
+
+![](https://i.imgur.com/eU1DWCP.png)
