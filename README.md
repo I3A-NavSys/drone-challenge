@@ -1,9 +1,9 @@
 ![Drone Challenge Logo](https://blog.uclm.es/esiidronechallenge/files/2017/03/cropped-dc.logo_.png)
 
-Este repositorio almacena los ficheros necesarios para la configuración del entorno necesario para ejecutar el simulador para la Drone Challenge. El simulador está formado por distintas piezas software, que deben ser instaladas y configuradas en una máquina real o máquina virtual. Podemos dividir el simulador en dos grandes partes:
+Este repositorio almacena los ficheros necesarios para la configuración del entorno necesario para ejecutar el simulador para la Drone Challenge. El simulador está formado por distintas piezas software, que deben ser instaladas y configuradas en una o varias máquinas reales o virtuales. Podemos dividir el simulador en dos grandes partes:
 
-- **Controlador del dron:** Es el encargado de decidir qué acciones (moverse, ascender, girar, etc.) debe realizar el drone. Recibe la visualización de la cámara incorporada por el drone y toma la decisión de qué realizar en cada momento. Este controlador ha sido creado en **Matlab**, de _Mathworks_, con algunas herramientas necesarias que son distribuidas por la propia Mathworks. Comentaremos más tarde el proceso de instalación y las dependencias necesarias.
-- **Simulador 3D**: Si bien el controlador decide qué realiza el drone, necesitamos un entorno de simulación 3D donde el drone vuele y podamos ver la respuesta del mismo a los comandos del controlador. Para ello se hace uso de **ROS (_Robot Operating System_) y Gazebo**. Gazebo nos permitirá la visualización de drone a través de un simulador 3D, mientras que ROS permitirá implementar el modelo dinámico y la respuesta del drone a los comandos del controlador.
+- **Controlador del dron:** Es el encargado de decidir qué acciones (moverse, ascender, girar, etc.) debe realizar el dron. Recibe la visualización de la cámara incorporada por el dron y toma la decisión de qué realizar en cada momento. Este controlador ha sido creado en **Matlab**, de _Mathworks_, con algunas herramientas necesarias que son distribuidas por la propia Mathworks. Comentaremos más tarde el proceso de instalación y las dependencias necesarias.
+- **Simulador 3D**: Si bien el controlador decide qué realiza el dron, necesitamos un entorno de simulación 3D donde el dron vuele y podamos ver la respuesta del mismo a los comandos del controlador. Para ello se hace uso de **ROS (_Robot Operating System_) y Gazebo**. Gazebo nos permitirá la visualización de dron a través de un simulador 3D, mientras que ROS permitirá implementar el modelo dinámico y la respuesta del dron a los comandos del controlador.
 
 
 
@@ -84,7 +84,7 @@ sudo chgrp <usuario> -R drone_ros
    ![Configuración de la interfaz en el fichero ros_ip_set.sh](https://i.imgur.com/D8lMIg0_d.webp?maxwidth=760&fidelity=grand)
 
 ## 1.3. Añadir los modelos 3D a Gazebo
-Gazebo dispone de multitud de recursos 3D. Sin embargo, el modelo del drone y los marcos necesarios deben ser instalados de forma independiente. Para ello, simplemente copia el directorio `models` proporcionado dentro de la carpeta oculta `.gazebo`, dentro de la carpeta de tu usuario:
+Gazebo dispone de multitud de recursos 3D. Sin embargo, el modelo del dron y los marcos necesarios deben ser instalados de forma independiente. Para ello, simplemente copia el directorio `models` proporcionado dentro de la carpeta oculta `.gazebo`, dentro de la carpeta de tu usuario:
 ```shell
 cd /home/<usuario> 
 cp -R /dronechallenge_files/models /.gazebo
@@ -114,7 +114,7 @@ cd launch
 ./round1.sh
 ```
 Verás como la terminal se llena de multitud de líneas con información del entorno de simulación. Entre toda esa información solo tienes que fijarte en la primera línea, donde te indica la dirección IP de ROS.
-Tras unos segundos, verás que Gazebo se habrá abierto, y verás que hay un escenario con un drone sobre una caja, y 3 marcos de color rojo, verde y azul flotando. 
+Tras unos segundos, verás que Gazebo se habrá abierto, y verás que hay un escenario con un dron sobre una caja, y 3 marcos de color rojo, verde y azul flotando. 
 
 ![Entorno de simulación 3D de la Drone Challenge](https://i.imgur.com/yIRiAMG.png)
 
@@ -128,15 +128,15 @@ Una vez abierto, puedes ver lo siguiente:
 ![Controlador en Simulink](https://i.imgur.com/b56IKMq.png)
 
 Verás que hay diferentes bloques:
-- El bloque `autopilot` es el pioto automático del drone. La parte a desarrollar en Drone Challenge.
-- El bloque `pilot` puede usarse para controlar el drone con un joystick. Si dispones de uno, puedes probarlo. Sin embargo, para que el piloto automático funcione, debe estar comentado. Por defecto viene comentado.
-- El bloque `drone simulator` se encarga de la comunicación con el drone, enviandole los comandos y recibiendo la telemetría del mismo.
+- El bloque `autopilot` es el pioto automático del dron. La parte a desarrollar en Drone Challenge.
+- El bloque `pilot` puede usarse para controlar el dron con un joystick. Si dispones de uno, puedes probarlo. Sin embargo, para que el piloto automático funcione, debe estar comentado. Por defecto viene comentado.
+- El bloque `drone simulator` se encarga de la comunicación con el dron, enviandole los comandos y recibiendo la telemetría del mismo.
 
 Para comenzar la simulación, primero, desde la barra de herramientas superior, pulsa sobre "Simulation". Después, en el panel "PREPARE", pulsa sobre "ROS Network", y en la ventana que se abre, escribe la dirección IP que apareció en la consola cuando ejecutamos ROS y Gazebo, en el apartado que indica "ROS MAster (ROS)". Deberás seleccionar "Custom" en "Netword Address" para escribir la dirección IP. Pulsa sobre "Test" para comprobar que tienes conexión con ROS y Gazebo.
 ![Conexión MATLAB con ROS](https://i.imgur.com/IxcIj4E_d.webp?maxwidth=760&fidelity=grand)
 
-Finalmente, si la conexión es correcta, puedes pulsar sobre "Run", en el apartado "SIMULATE", de la pestaña "SIMULATION" de la barra de herramientas superior de MATLAB. El programa empezará a compilar y, cuando haya finalizado, verás como el drone se alza en el aire. Verás también que desde MATLAB se abren algunas ventanas: una con los comandos enviados al drone, otra con la respuesta del mismo y otra con la vista de la cámara _onboard_ del drone. Ya tienes todo lo necesario para comenzar el reto **Drone Challenge**.
+Finalmente, si la conexión es correcta, puedes pulsar sobre "Run", en el apartado "SIMULATE", de la pestaña "SIMULATION" de la barra de herramientas superior de MATLAB. El programa empezará a compilar y, cuando haya finalizado, verás como el dron se alza en el aire. Verás también que desde MATLAB se abren algunas ventanas: una con los comandos enviados al dron, otra con la respuesta del mismo y otra con la vista de la cámara _onboard_ del dron. Ya tienes todo lo necesario para comenzar el reto **Drone Challenge**.
 
-![Entorno de simulación 3D donde el drone está recibiendo los comandos por parte de MATLAB](https://i.imgur.com/mgkWoH4.png)
+![Entorno de simulación 3D donde el dron está recibiendo los comandos por parte de MATLAB](https://i.imgur.com/mgkWoH4.png)
 
 ![](https://i.imgur.com/eU1DWCP.png)
