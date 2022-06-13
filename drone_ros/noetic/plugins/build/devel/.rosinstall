@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /opt/ros/noetic/share/drone_ros/plugins/build/devel/setup.sh
