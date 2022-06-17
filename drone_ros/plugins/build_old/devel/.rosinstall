@@ -1,2 +1,0 @@
-- setup-file:
-    local-name: /opt/ros/kinetic/share/drone_ros/plugins/build/devel/setup.sh

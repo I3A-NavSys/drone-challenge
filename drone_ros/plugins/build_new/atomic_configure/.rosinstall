@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/dronechallenge/repos/drone-challenge/drone_ros/plugins/build_new/devel/setup.sh
