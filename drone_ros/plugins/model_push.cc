@@ -202,7 +202,7 @@ private:
 
    ////////////////////////////////////////////////////////
 public:
-   void Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
+   void Load(physics::ModelPtr _parent, sdf::ElementPtr _sdf)
    {
       //    _sdf->PrintValues("\n\n\n");
 
@@ -222,7 +222,17 @@ public:
       }
 
       // Configure a ROS node
-      this->rosnode_ = new ros::NodeHandle("quadcopter");
+       std::string id;
+
+       if(!_sdf->HasElement("id")){
+          std::cout << "Missing parameter <id> in PluginCall, default to 1" << std::endl;
+          id = "1";
+      } else {
+          id = _sdf->GetElement("id")->GetValue()->GetAsString();
+           std::cout << "ID del drone introducido" << std::endl;
+      }
+
+      this->rosnode_ = new ros::NodeHandle("quadcopter"+id);
 
       // Initiates the publication topic
       this->pub_ = this->rosnode_->advertise<gazebo_msgs::ModelState>("odometry", 10);
