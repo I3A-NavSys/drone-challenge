@@ -4,8 +4,9 @@ Los componentes que lo componen son los siguientes:
 - ROS (Robot Operating System) provee la capa de transporte de mensajes entre el software de control y el software de simulación.
 - Gazebo es usado para mostrar el estado de los UAS, es decir, recibe la información de velocidad comandada por el control a través de la capa de transporte de información de ROS y modifica el estado el modelo del UAS simulado.
 
-Ambas partes, ROS y Gazebo, no se comunican por defecto entre ellos, lo que obliga a usar un plugin creado específicamente para llevar a cabo esta tarea. Sendo plugin se encarga de recibir la información enviada por el software de control a través de un tópico de ROS y almacenar dicha información en el modelo.
-A la vez, el plugin dispone del software necesario para traducir los comandos del software de control en fuerzas aplicadas en los rotores del UAS. El resto de físicas son ejecutadas y simuladas por Gazebo de forma automática.
+Ambas partes, ROS y Gazebo, disponen de herramientas para comunicarse entre ellos, lo que permite implementar simulación de robots a través de Gazebo bajo el control y la comunicación de ROS. Para permitir esto, ambas herramientas cuentan con herramientas para permitir la integración entre ellas. En el caso de Gazebo, dispone de todo un grupo de paquetes, llammado `gazebo_ros_pkgs`, que permite la ejecución de Gazebo desde ROS (más info en https://classic.gazebosim.org/tutorials?tut=ros_overview y https://classic.gazebosim.org/tutorials?cat=connect_ros).
+
+Además, es necesario la creación de un plugin que se comunique con la APIs de Gazebo y ROS. Sendo plugin se encarga de recibir la información enviada por el software de control a través de un tópico de ROS, almacenar dicha información en el modelo y modificar el estado del mismo en el simulador de Gazebo. A la vez, el plugin dispone del software necesario para traducir los comandos del software de control en fuerzas aplicadas en los rotores del UAS. El resto de físicas son ejecutadas y simuladas por Gazebo de forma automática.
 
 # Despliegue del entorno
 Para ejecutar la simulación es necesario que ambos componentes estén en ejecución. Para simplificar esta tarea, todo el entorno de simulación se puede ejecutar de forma automatizada con un par de comandos, con la ayuda de ficheros de lanzamiento y ejecución. Vemos cómo se lleva a cabo este proceso:
