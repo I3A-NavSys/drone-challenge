@@ -1,4 +1,4 @@
-![Drone Challenge Logo](https://blog.uclm.es/esiidronechallenge/files/2017/03/cropped-dc.logo_.png)
+
 
 Este repositorio almacena los ficheros necesarios para la configuración del entorno necesario para ejecutar el simulador para la Drone Challenge. El simulador está formado por distintas piezas software, que deben ser instaladas y configuradas en una o varias máquinas reales o virtuales. Podemos dividir el simulador en dos grandes partes:
 
